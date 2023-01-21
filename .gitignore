@@ -1,8 +1,8 @@
 .venv/
 *.sqlite3
-__pycache__/
+hexlet_django_blog/__pycache__/
 .env
 .coverage
 htmlcov/
 dist/
-__pycache__
+__pycache__/
