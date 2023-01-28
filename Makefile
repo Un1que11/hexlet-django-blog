@@ -7,3 +7,9 @@ build:
 install:
 		poetry install
 
+shell:
+		poetry run ./manage.py shell
+
+reinstall:
+		pip install --user --force-reinstall dist/*.whl
+

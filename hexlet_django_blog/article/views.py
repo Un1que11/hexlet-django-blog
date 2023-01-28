@@ -1,17 +1,47 @@
 from django.shortcuts import render, redirect
-from django.views import View
-from django.urls import reverse
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+
+from hexlet_django_blog.article.models import Article
+from hexlet_django_blog.article.forms import ArticleForm
 
 
-class Index(View):
+class IndexView(ListView):
+    model = Article
+    template_name = 'article/index.html'
 
-    def get(self, request, tags, article_id):
-        # return redirect('article', tags='python', article_id=42)
-        return render(
-            request,
-            'article/index.html',
-            context={
-                'name': 'hexlet django blog',
-                'tags': tags,
-                'article_id': article_id
-            })
+
+class ArticleCreate(CreateView):
+
+    def get(self, request, *args, **kwargs):
+        form = ArticleForm()
+        return render(request, 'article/create.html', context={
+            'form': form
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+
+        return render(request, 'article/create.html', context={
+            'form': form,
+        })
+
+
+class ArticleUpdate(UpdateView):
+    model = Article
+    form_class = ArticleForm
+    template_name = 'article/update.html'
+
+
+class ArticleDelete(DeleteView):
+    model = Article
+    success_url = reverse_lazy('articles:index')
+    template_name = 'article/delete.html'
+
+
+class ArticleDetail(DetailView):
+    model = Article
+    template_name = 'article/show.html'
