@@ -3,6 +3,12 @@ name = "hexlet-django-blog"
 version = "0.1.0"
 description = ""
 authors = ["Mikhail Orlov <crazyminer398@gmail.com>"]
+packages = [
+  { include = "hexlet_django_blog" },
+]
+
+[tool.poetry.scripts]
+hexlet-django-blog = "hexlet_django_blog.app:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
