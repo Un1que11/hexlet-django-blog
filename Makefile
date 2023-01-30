@@ -14,5 +14,5 @@ reinstall:
 		pip install --user --force-reinstall dist/*.whl
 
 start:
-		poetry run ./manage.py runserver 0.0.0.0:8000
+		poetry run gunicorn hexlet_django_blog.wsgi
 
